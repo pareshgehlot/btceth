@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Application to get crypto currency\'s price!"', () => {
+      expect(appController.getHello()).toBe(
+        "Application to get crypto currency's price!",
+      );
     });
   });
 });

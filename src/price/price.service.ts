@@ -1,15 +1,14 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PriceService {
   constructor(private readonly http: HttpService) {}
-  getPrice(asset: string): string {
+  getPrice(asset: string): string | {} {
     return this.validateAsset(asset);
   }
-  validateAsset(asset: string): string {
+  validateAsset(asset: string): string | {} {
     if (asset === '') {
       return 'asset should be either BTC or ETH, not empty';
     }
@@ -22,7 +21,7 @@ export class PriceService {
       return 'This asset is not supported';
     }
   }
-  callApiToGetPrice(asset: string): any {
+  callApiToGetPrice(asset: string): {} {
     let assetsMappingArray = {
       BTC: 'bitcoin',
       ETH: 'ethereum',
@@ -31,10 +30,10 @@ export class PriceService {
     const baseApiUrl = 'https://api.coingecko.com/api/v3/coins/';
 
     return this.http.get(baseApiUrl + urlParameter).pipe(
-      map((axiosResponse: AxiosResponse) => {
+      map((apiResponse: AxiosResponse) => {
         return {
           assetId: asset,
-          value: axiosResponse.data.market_data.current_price.usd
+          value: apiResponse.data.market_data.current_price.usd
             .toFixed(1)
             .toString(),
         };
