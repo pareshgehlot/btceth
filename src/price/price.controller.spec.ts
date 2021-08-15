@@ -13,13 +13,31 @@ describe('AppController', () => {
     priceService = app.get<PriceService>(PriceService);
   });
 
-  describe('when asset has value other than BTC or ETH and is passed to getPriceOfAsset', () => {
+  describe('when asset has value other than BTC or ETH and is passed to getPrice', () => {
     it('should return an Http Exception', () => {
       try {
         priceService.getPrice('unknowAsset');
       } catch (error) {
         expect(error.message).toBe('Http Exception');
       }
+    });
+  });
+
+  describe('when asset has empty value and is passed to getPrice', () => {
+    it('should return an Http Exception', () => {
+      try {
+        priceService.getPrice('');
+      } catch (error) {
+        expect(error.message).toBe('Http Exception');
+      }
+    });
+  });
+
+  describe('when asset has BTC value and is passed to getPrice', () => {
+    it('should return proper Object', () => {
+      // try {
+      const response = priceService.getPrice('BTC');
+      expect(typeof response).toBe('object');
     });
   });
 });

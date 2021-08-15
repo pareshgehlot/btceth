@@ -16,24 +16,36 @@ describe('PriceController (e2e)', () => {
   });
 
   it('/price (GET) without any query parameter', () => {
+    let expectedResponse = {
+      status: 406,
+      error: 'asset should be either BTC or ETH, not empty',
+    };
     return request(app.getHttpServer())
       .get('/price')
-      .expect(200)
-      .expect('This asset is not supported');
+      .expect(406)
+      .expect(expectedResponse);
   });
 
   it('/price (GET) with query parameter asset with value other than BTC or ETH', () => {
+    let expectedResponse = {
+      status: 406,
+      error: 'asset should be either BTC or ETH, not empty',
+    };
     return request(app.getHttpServer())
       .get('/price?asset=unknowAsset')
-      .expect(200)
-      .expect('This asset is not supported');
+      .expect(406)
+      .expect(expectedResponse);
   });
 
   it('/price (GET) with query parameter asset with empty value', () => {
+    let expectedResponse = {
+      status: 400,
+      error: 'asset should be either BTC or ETH, not empty',
+    };
     return request(app.getHttpServer())
       .get('/price?asset=')
-      .expect(200)
-      .expect('asset should be either BTC or ETH, not empty');
+      .expect(400)
+      .expect(expectedResponse);
   });
 
   it('/price (GET) price of BTC', async () => {

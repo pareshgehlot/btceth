@@ -37,7 +37,7 @@ export class PriceService implements IValidReturnObject {
     // setter method implemented as class implements interface to restrict data types
     this._assetPrice = assetPrice;
   }
-  getPrice(asset: string): HttpException | {} {
+  getPrice(asset: string): {} {
     return this.validateAsset(asset);
   }
   validateAsset(asset: string): {} {
