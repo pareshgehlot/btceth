@@ -1,13 +1,13 @@
-import { Controller, Get, HttpCode, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { PriceService } from './price.service';
 
+// route to receive price should be /price and get request should be used
 @Controller('price')
 export class PriceController {
   constructor(private readonly priceService: PriceService) {}
-
+  // get request used
   @Get()
-  @HttpCode(200)
-  getPriceOfAsset(@Query() queryString): string | {} {
+  getPriceOfAsset(@Query() queryString): {} {
     return this.priceService.getPrice(queryString.asset);
   }
 }
