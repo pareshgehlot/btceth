@@ -35,7 +35,6 @@ describe('AppController', () => {
 
   describe('when asset has BTC value and is passed to getPrice', () => {
     it('should return proper Object', () => {
-      // try {
       const response = priceService.getPrice('BTC');
       expect(typeof response).toBe('object');
     });
